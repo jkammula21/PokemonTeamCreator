@@ -43,3 +43,8 @@ process.stdin.on('readable', () => {
 app.get("/", (request, response) => {  
     response.render("index");
   });
+
+
+app.get("/teamCreator", (request, response) => {  
+    response.render("teamCreator");
+  });
