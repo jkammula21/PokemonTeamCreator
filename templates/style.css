@@ -5,4 +5,17 @@
 
     width: 0px; 
     height: 100vh; 
+
+    margin: 0px;
+    padding: 0px;
+}
+
+h2 {
+    text-align: center;
+}
+
+#submit {
+    text-align: center;
+    align-content: center;
+    margin: auto;
 }
