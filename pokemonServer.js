@@ -40,11 +40,59 @@ process.stdin.on('readable', () => {
     }
 });
 
+
+
+
+let endpoint = url + query + name
+
+
+
+async function getData(endpoint) {
+   try {
+      let res = await fetch(endpoint);
+      // console.log(res);
+      let data = await res.json();
+      // console.log(data);
+      console.log(data.name);
+   } catch(error) {
+      console.log(error);
+   }
+}
+
+async function addApplication(name) {
+   const databaseName = process.env.MONGO_DB_NAME;
+   const collectionName = process.env.MONGO_COLLECTION;
+   const uri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.p9pyx5z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+   const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+
+   let url = "https://pokeapi.co/api/v2";
+   let query = "/pokemon";
+   let name = "/" + name;
+   let endpoint = url + query + name;
+   try {
+      await client.connect();
+      const database = client.db(databaseName);
+      const collection = database.collection(collectionName);
+      let res = await fetch(endpoint);
+      let data = await res.json();
+      const application = { name: data.name, height: parseFloat(data.height), weight: parseFloat(data.weight)};
+      let result = await collection.insertOne(application);
+   } catch (e) {
+      console.error(e);
+   } finally {
+      await client.close();
+   }
+}
+
+
+
 app.get("/", (request, response) => {  
-    response.render("index");
+   getData(endpoint);
+   response.render("index");
   });
 
 
 app.get("/teamCreator", (request, response) => {  
     response.render("teamCreator");
   });
+
