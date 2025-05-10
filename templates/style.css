@@ -11,11 +11,20 @@
 }
 
 h2 {
+    font-family: "Honk";
     text-align: center;
+    font-optical-sizing: auto;
+    font-size: 3rem;
+    margin-top: 0px;
 }
 
 h1 {
+    font-family: "Honk";
     text-align: center;
+    font-optical-sizing: auto;
+    font-size: 4rem;
+
+    margin-top: 0px;
 }
 
 #submit {
