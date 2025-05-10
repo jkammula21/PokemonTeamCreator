@@ -45,7 +45,6 @@ process.stdin.on('readable', () => {
 
 
 
-let endpoint = url + query + name
 
 
 
@@ -69,8 +68,8 @@ async function addApplication(name) {
 
    let url = "https://pokeapi.co/api/v2";
    let query = "/pokemon";
-   let name = "/" + name;
-   let endpoint = url + query + name;
+   let newName = "/" + name;
+   let endpoint = url + query + newName;
    try {
       await client.connect();
       const database = client.db(databaseName);
@@ -89,7 +88,6 @@ async function addApplication(name) {
 
 
 app.get("/", (request, response) => {  
-   getData(endpoint);
    response.render("index");
   });
 
