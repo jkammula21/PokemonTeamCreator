@@ -118,7 +118,7 @@ app.get("/", (request, response) => {
 app.get("/teamCreator", (request, response) => {  
     const variables = {portNumber: portNumber, teamTable: "hello!"};
     response.render("teamCreator", variables);
-  });
+});
 
 app.post("/teamCreator", (request, response) => {
    const {name} = request.body;
