@@ -42,12 +42,6 @@ process.stdin.on('readable', () => {
     }
 });
 
-
-
-
-
-
-
 async function getData(endpoint) {
    try {
       let res = await fetch(endpoint);
