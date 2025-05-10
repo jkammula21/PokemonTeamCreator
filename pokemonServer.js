@@ -129,3 +129,6 @@ app.post("/teamCreator", (request, response) => {
    // response.render("teamCreator", variables);
 })
    
+app.get("/getTeam", (request, response) => {
+    response.render("getTeam", {portNumber: portNumber});
+})

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Get Team</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
+  <script src = "../pokemonServer.js"  type="text/javascript"></script>
+</head>
+
+
+<body>
+	<h1>Welcome to Pokemon Team Creator</h1>
+
+    <div>
+    <h2>Search for previously created team</h2>
+
+    <div style="text-align: center;">
+      <form action="http://localhost:<%-portNumber%>/getTeam" method="post">
+        <label for="name">Pokemon Type: </label>
+        <input type="text" name = "type" value="fire">
+        
+        <input type="submit" id="submit">
+      </form>
+    </div>
+
+    <div>
+      Return to home <a href="/">Home</a>
+    </div>
+</body>
+</html>
