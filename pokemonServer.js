@@ -83,16 +83,6 @@ async function addApplication(name) {
 
 
 
-app.get("/", (request, response) => {  
-   response.render("index");
-  });
-
-
-app.get("/teamCreator", (request, response) => {  
-    response.render("teamCreator");
-  });
-
-   
 async function addApplication(name) {
    const databaseName = process.env.MONGO_DB_NAME;
    const collectionName = process.env.MONGO_COLLECTION;
@@ -119,3 +109,21 @@ async function addApplication(name) {
       await client.close();
    }
 }
+
+app.get("/", (request, response) => {  
+   response.render("index");
+  });
+
+
+app.get("/teamCreator", (request, response) => {  
+    const variables = {portNumber: portNumber, teamTable: "hello!"};
+    response.render("teamCreator", variables);
+  });
+
+app.post("/teamCreator", (request, response) => {
+   const {name} = request.body;
+   addApplication(name);
+   const variables = {portNumber: portNumber, teamTable: "hello!"};
+   response.render("teamCreator", variables);
+})
+   
