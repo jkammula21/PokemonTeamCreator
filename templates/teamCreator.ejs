@@ -4,18 +4,51 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Team Creator</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
 	<h1>Welcome to Pokemon Team Creator</h1>
 
-    <div>
-        <form action="">
-            Pokemon Name: <input type="text" id="name">
-    
-            <input type="submit">
-        </form>
+    <div style="display: grid; grid-template-columns: 10fr 1fr 10fr; grid-template-rows: 1fr;">
+      <div>
+        <h2>Search for a pokemon to add</h2>
 
+        <div style="text-align: center;">
+          <form action="">
+            <label for="name">Pokemon Name: </label><input type="text" id="name">
+    
+            <input type="submit" id="submit">
+          </form>
+        </div>
+
+        <div id="pokemon" style="height: 30vh;">
+
+        </div>
+
+        <div style="text-align: center;">
+          <button>Add To Team</button>
+        </div>
+
+        <div style="text-align: center;">
+          Not sure what pokemon to add? <br>
+          Try to find one that fits your needs by clicking <a href="/pokemonFinder">here</a>
+        </div>
+      </div>
+
+      <div class="verticalLine"></div>
+
+      <div>
+        <h2>Your Team</h2>
+
+        <div id="team"></div>
+      </div>
+    </div>
+
+    <hr>
+    
+    <div>
+      Return to home <a href="/">Home</a>
     </div>
 </body>
 

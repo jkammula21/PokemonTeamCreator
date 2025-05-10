@@ -21,6 +21,8 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
 app.listen(portNumber);
+app.use(express.static(__dirname + '/templates'));
+
 
 process.stdout.write(`Web server started and running at http://localhost:${portNumber}\n`);
 process.stdout.write("Stop to shutdown the server: ");
