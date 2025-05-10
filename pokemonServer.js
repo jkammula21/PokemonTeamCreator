@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 require("dotenv").config({
    path: path.resolve(__dirname, "./.env"),
 });
+
+
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 if (process.argv.length != 3) {
@@ -19,11 +22,10 @@ portNumber = process.argv[2];
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
-app.use(bodyParser.urlencoded({extended:false}));
-app.listen(portNumber);
 app.use(express.static(__dirname + '/templates'));
+app.use(bodyParser.urlencoded({extended:false}));
 
-
+app.listen(portNumber);
 process.stdout.write(`Web server started and running at http://localhost:${portNumber}\n`);
 process.stdout.write("Stop to shutdown the server: ");
 process.stdin.setEncoding("utf8"); 
@@ -90,3 +92,30 @@ app.get("/teamCreator", (request, response) => {
     response.render("teamCreator");
   });
 
+   
+async function addApplication(name) {
+   const databaseName = process.env.MONGO_DB_NAME;
+   const collectionName = process.env.MONGO_COLLECTION;
+   const uri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.p9pyx5z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+   const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+
+   console.log("hi");
+   let url = "https://pokeapi.co/api/v2";
+   let query = "/pokemon";
+   let newName = "/" + name;
+   let endpoint = url + query + newName;
+   try {
+      await client.connect();
+      const database = client.db(databaseName);
+      const collection = database.collection(collectionName);
+      let res = await fetch(endpoint);
+      let data = await res.json();
+      const application = { name: data.name, height: parseFloat(data.height), weight: parseFloat(data.weight)};
+      consoloe.log(application);
+      let result = await collection.insertOne(application);
+   } catch (e) {
+      console.error(e);
+   } finally {
+      await client.close();
+   }
+}
