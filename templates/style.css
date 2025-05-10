@@ -4,13 +4,17 @@
     border-color: black;
 
     width: 0px; 
-    height: 100vh; 
+    height: 80vh; 
 
     margin: 0px;
     padding: 0px;
 }
 
 h2 {
+    text-align: center;
+}
+
+h1 {
     text-align: center;
 }
 
