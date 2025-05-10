@@ -4,18 +4,35 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Team Creator</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
 	<h1>Welcome to Pokemon Team Creator</h1>
 
-    <div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr;">
+      <div>
         <form action="">
-            Pokemon Name: <input type="text" id="name">
-    
-            <input type="submit">
+          <h2>Search for a pokemon to add</h2>
+          <input type="text" id="name">
+  
+          <input type="submit">
         </form>
 
+        <div id="pokemon">
+
+        </div>
+
+        <button>Add To Team</button>
+      </div>
+
+      <div class="verticalLine"></div>
+
+      <div>
+        <h2>Your Team</h2>
+
+        <div id="team"></div>
+      </div>
     </div>
 </body>
 
