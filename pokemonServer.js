@@ -20,11 +20,6 @@ portNumber = process.argv[2];
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
-
-app.get("/", (request, response) => {  
-    response.render("index");
-  });
-
 app.listen(portNumber);
 
 process.stdout.write(`Web server started and running at http://localhost:${portNumber}\n`);
@@ -45,3 +40,6 @@ process.stdin.on('readable', () => {
     }
 });
 
+app.get("/", (request, response) => {  
+    response.render("index");
+  });
