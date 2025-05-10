@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 let portNumber = 0;
 const bodyParser = require('body-parser');
+let pokemon_names = ""
 
 require("dotenv").config({
    path: path.resolve(__dirname, "./.env"),
@@ -102,13 +103,14 @@ async function addApplication(name) {
       let res = await fetch(endpoint);
       let data = await res.json();
       console.log()
-      const application = { name: data.name, height: parseFloat(data.height), weight: parseFloat(data.weight)};
+      const application = { name: data.name, height: parseFloat(data.height), weight: parseFloat(data.weight), type: data.types[0].type.name, sprite :data.sprites.front_default};
       console.log(application);
       let result = await collection.insertOne(application);
    } catch (e) {
       console.error(e);
    } finally {
       await client.close();
+      console.log("done")
    }
 }
 
@@ -125,7 +127,8 @@ app.get("/teamCreator", (request, response) => {
 app.post("/teamCreator", (request, response) => {
    const {name} = request.body;
    addApplication(name);
-   // const variables = {portNumber: portNumber, teamTable: "hello!"};
-   // response.render("teamCreator", variables);
+   pokemon_names += name;
+   const variables = {portNumber: portNumber, teamTable: pokemon_names};
+   response.render("teamCreator", variables);
 })
    
