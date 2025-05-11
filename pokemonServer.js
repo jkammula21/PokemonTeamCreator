@@ -169,35 +169,40 @@ app.post("/teamCreatorRemove", (request, response) => {
 
 
 app.get("/getTeam", (request, response) => {
+   console.log("hello")
     response.render("getTeam", {portNumber: portNumber});
 });
 
-app.get("/displayType", async (request, response) => {
+app.get("/displayType", async (req, res) => {
    console.log("here")
-   const type = parseFloat(req.query.type);
+   const type = (req.query.type);
    let pokemons=""
    console.log("Type:", type);
- 
+   const uri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.p9pyx5z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+   const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+   const db = client.db(process.env.MONGO_DB_NAME);
+   const collection = db.collection(process.env.MONGO_COLLECTION);
    try {
+     
      await client.connect();
-     const db = client.db(process.env.MONGO_DB_NAME);
-     const collection = db.collection(process.env.MONGO_COLLECTION);
- 
      const allEntries = await collection
        .find({})
        .toArray();
  
      const filtered = allEntries.filter(entry => {
+       if (type == "anything") {
+         return true;
+       }
        const currType = entry.type;
        return currType == type;
      });
- 
+   console.log(filtered)
    filtered.forEach(data =>
-      pokemons += `<img src="${data.sprites.front_default}">`);
+      pokemons += `<img src="${data.sprite}">`);
 
    console.log(pokemons);
  
-   res.render("typeResults", { pokemons: pokemons });
+   res.render("typeResults", { pokemons: pokemons, portNumber: portNumber});
  
    } catch (err) {
      console.error("Error retrieving", err);
