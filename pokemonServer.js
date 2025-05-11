@@ -114,6 +114,10 @@ async function addApplication(name) {
    }
 }
 
+function capitalize(str){
+   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 async function removeApplications() {
    const databaseName = process.env.MONGO_DB_NAME;
    const collectionName = process.env.MONGO_COLLECTION;
@@ -152,7 +156,7 @@ app.post("/teamCreator", async (request, response) => {
       response.render("teamCreator", variables);
    }
    else {
-   pokemon_names += `<img src="${data.sprites.front_default}">`;
+   pokemon_names += `<figure class="inline-figure"><img src="${data.sprites.front_default}"><figcaption>${capitalize(data.name)}</figcaption></figure>`;
    console.log(pokemon_names);
    const variables = {portNumber: portNumber, invalidMessage: "", teamTable: pokemon_names};
    response.render("teamCreator", variables);
@@ -198,7 +202,7 @@ app.get("/displayType", async (req, res) => {
      });
    console.log(filtered)
    filtered.forEach(data =>
-      pokemons += `<img src="${data.sprite}">`);
+      pokemons += `<figure class="inline-figure"><img src="${data.sprite}"><figcaption>${capitalize(data.name)}</figcaption></figure>`);
 
    console.log(pokemons);
  
