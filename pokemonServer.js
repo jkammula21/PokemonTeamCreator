@@ -168,7 +168,41 @@ app.post("/teamCreatorRemove", (request, response) => {
 })
 
 
-
 app.get("/getTeam", (request, response) => {
     response.render("getTeam", {portNumber: portNumber});
-})
+});
+
+app.get("/displayType", async (request, response) => {
+   console.log("here")
+   const type = parseFloat(req.query.type);
+   let pokemons=""
+   console.log("Type:", type);
+ 
+   try {
+     await client.connect();
+     const db = client.db(process.env.MONGO_DB_NAME);
+     const collection = db.collection(process.env.MONGO_COLLECTION);
+ 
+     const allEntries = await collection
+       .find({})
+       .toArray();
+ 
+     const filtered = allEntries.filter(entry => {
+       const currType = entry.type;
+       return currType == type;
+     });
+ 
+   filtered.forEach(data =>
+      pokemons += `<img src="${data.sprites.front_default}">`);
+
+   console.log(pokemons);
+ 
+   res.render("typeResults", { pokemons: pokemons });
+ 
+   } catch (err) {
+     console.error("Error retrieving", err);
+     res.status(500).send("Error filtering");
+   } finally {
+     await client.close();
+   }
+ });
