@@ -114,6 +114,25 @@ async function addApplication(name) {
    }
 }
 
+async function removeApplications() {
+   const databaseName = process.env.MONGO_DB_NAME;
+   const collectionName = process.env.MONGO_COLLECTION;
+   const uri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.p9pyx5z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+   const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+   let numDeleted = 0;
+        try {
+           await client.connect();
+           const database = client.db(databaseName);
+           const collection = database.collection(collectionName);
+           const filter = {};
+           const result = await collection.deleteMany(filter);
+        } catch (e) {
+           console.error(e);
+        } finally {
+           await client.close();
+        }
+}
+
 app.get("/", (request, response) => {  
    response.render("index");
   });
@@ -140,6 +159,16 @@ app.post("/teamCreator", async (request, response) => {
    }
 })
    
+
+app.post("/teamCreatorRemove", (request, response) => {
+   removeApplications();
+   pokemon_names = "";
+   const variables = {portNumber: portNumber, invalidMessage: "Pokemon Succesfully Removed", teamTable: pokemon_names};
+   response.render("teamCreator", variables);
+})
+
+
+
 app.get("/getTeam", (request, response) => {
     response.render("getTeam", {portNumber: portNumber});
 })
