@@ -106,11 +106,11 @@ async function addApplication(name) {
       const application = { name: data.name, height: parseFloat(data.height), weight: parseFloat(data.weight), type: data.types[0].type.name, sprite :data.sprites.front_default};
       console.log(application);
       let result = await collection.insertOne(application);
+      return data
    } catch (e) {
       console.error(e);
    } finally {
       await client.close();
-      console.log("done")
    }
 }
 
@@ -120,14 +120,16 @@ app.get("/", (request, response) => {
 
 
 app.get("/teamCreator", (request, response) => {  
-    const variables = {portNumber: portNumber, teamTable: "hello!"};
+    const variables = {portNumber: portNumber, teamTable: ""};
     response.render("teamCreator", variables);
 });
 
-app.post("/teamCreator", (request, response) => {
+app.post("/teamCreator", async (request, response) => {
    const {name} = request.body;
-   addApplication(name);
-   pokemon_names += name;
+   let data = await addApplication(name);
+   console.log(data.sprites.front_default)
+   pokemon_names += `<img src="${data.sprites.front_default}">`;
+   console.log(pokemon_names);
    const variables = {portNumber: portNumber, teamTable: pokemon_names};
    response.render("teamCreator", variables);
 })
