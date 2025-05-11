@@ -22,12 +22,12 @@
       <!-- <form action="http://localhost:<%-portNumber%>/getTeam" method="post"> -->
         <form action="http://localhost:<%-portNumber%>/displayType" method="GET"></form>
         <label for="name">Pokemon Type: </label>
-        <input type="text" name = "type" value="fire">
+        <input type="text" id = "type" name = "type" value="fire">
         
         <input type="submit" id="submit">
       </form>
     </div>
-
+    <%- pokemons %>
     <div>
       Return to home <a href="/">Home</a>
     </div>
