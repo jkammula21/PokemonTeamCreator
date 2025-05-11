@@ -120,18 +120,24 @@ app.get("/", (request, response) => {
 
 
 app.get("/teamCreator", (request, response) => {  
-    const variables = {portNumber: portNumber, teamTable: ""};
+    const variables = {portNumber: portNumber, teamTable: "", invalidMessage: ""};
     response.render("teamCreator", variables);
 });
 
 app.post("/teamCreator", async (request, response) => {
    const {name} = request.body;
    let data = await addApplication(name);
-   console.log(data.sprites.front_default)
+   if (data == undefined) {
+      let invalidMessage = "Pokemon Doesn't Exist: Please Double Check the Spelling or Choose a Different Pokemon";
+      const variables = {portNumber: portNumber, teamTable: pokemon_names, invalidMessage: invalidMessage};
+      response.render("teamCreator", variables);
+   }
+   else {
    pokemon_names += `<img src="${data.sprites.front_default}">`;
    console.log(pokemon_names);
-   const variables = {portNumber: portNumber, teamTable: pokemon_names};
+   const variables = {portNumber: portNumber, invalidMessage: "", teamTable: pokemon_names};
    response.render("teamCreator", variables);
+   }
 })
    
 app.get("/getTeam", (request, response) => {
