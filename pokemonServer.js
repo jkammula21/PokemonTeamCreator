@@ -27,7 +27,7 @@ app.use(express.static(__dirname + '/templates'));
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.listen(portNumber);
-// process.stdout.write(`Web server started and running at http://localhost:${portNumber}\n`);
+process.stdout.write(`Web server started and running at http://localhost:${portNumber}/pokemonServer\n`);
 process.stdout.write("Stop to shutdown the server: ");
 process.stdin.setEncoding("utf8"); 
 process.stdin.on('readable', () => {  
