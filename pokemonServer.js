@@ -137,9 +137,14 @@ async function removeApplications() {
         }
 }
 
-app.get("/", (request, response) => {  
-   response.render("index");
-  });
+// app.get("/", (request, response) => {  
+//    response.render("index");
+//   });
+
+const server = require("./server");
+
+
+app.use("/pokemonServer", server);
 
 
 app.get("/teamCreator", (request, response) => {  
