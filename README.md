@@ -1,6 +1,6 @@
 # PokemonTeamCreator
 **Submitted by**: Name (directory id: )  
-**Group Members**: Jayant Kammula (jkammula)  
+**Group Members**: Jayant Kammula (jkammula), Eric Ji (eji)  
 **App Description**: Allow users to create their own pokemon teams, store them, and then filter by type and seeing their pokemon via sprite images.  
 **YouTube Video Link**: [URL HERE]  
 **APIs**: [PokeAPI](https://pokeapi.co/)   
